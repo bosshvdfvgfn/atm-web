@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import th.ac.ku.atm.model.BankAccount;
 import th.ac.ku.atm.service.BankAccountService;
-import th.ac.ku.atm.service.CustomerService;
 
 @Controller
 @RequestMapping("/bankaccount")
@@ -22,14 +21,14 @@ public class BankAccountController {
 
     @GetMapping
     public String getBankAccountPage(Model model) {
-        model.addAttribute("allBankAccount", bankAccountService.getBankAccount());
+//        model.addAttribute("allBankAccount", bankAccountService.getBankAccount());
         return "bankaccount";
     }
 
     @PostMapping
     public String openBankAccount(@ModelAttribute BankAccount bankAccount, Model model) {
-        bankAccountService.createBankAccount(bankAccount);
-        model.addAttribute("allBankAccount", bankAccountService.getBankAccount());
+//        bankAccountService.createBankAccount(bankAccount);
+//        model.addAttribute("allBankAccount", bankAccountService.getBankAccount());
         return "redirect:bankaccount";
     }
 }
