@@ -12,7 +12,6 @@ import th.ac.ku.atm.service.CustomerService;
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
-
     private CustomerService customerService;
 
     public CustomerController(CustomerService customerService) {

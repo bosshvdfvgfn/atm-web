@@ -10,41 +10,20 @@ import java.util.NoSuchElementException;
 
 @Service
 public class CustomerService {
-    private CustomerRepository repository;
+    private CustomerRepository customerRepository;
 
-    public CustomerService(CustomerRepository repository) {
-        this.repository = repository;
+    public CustomerService(CustomerRepository customerRepository) {
+        this.customerRepository = customerRepository;
     }
 
     public void createCustomer(Customer customer) {
         String hashPin = hash(customer.getPin());
         customer.setPin(hashPin);
-        repository.save(customer);
+        customerRepository.save(customer);
     }
 
     public List<Customer> getCustomers() {
-        return repository.findAll();
-    }
-
-    public Customer findCustomer(int id) {
-        try {
-            return repository.findById(id).get();
-        } catch (NoSuchElementException e) {
-            return null;
-        }
-
-    }
-
-    public Customer checkPin(Customer inputCustomer) {
-        Customer storedCustomer = findCustomer(inputCustomer.getId());
-
-        if (storedCustomer != null) {
-            String hashPin = storedCustomer.getPin();
-
-            if (BCrypt.checkpw(inputCustomer.getPin(), hashPin))
-                return storedCustomer;
-        }
-        return null;
+        return customerRepository.findAll();
     }
 
     private String hash(String pin) {
@@ -52,4 +31,21 @@ public class CustomerService {
         return BCrypt.hashpw(pin, salt);
     }
 
+    public Customer findCustomer(int id) {
+        try {
+            return customerRepository.findById(id).get();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
+    }
+
+    public Customer checkPin(Customer inputCustomer) {
+        Customer storedCustomer = findCustomer(inputCustomer.getId());
+        if (storedCustomer != null) {
+            String hashPin = storedCustomer.getPin();
+            if (BCrypt.checkpw(inputCustomer.getPin(), hashPin))
+                return storedCustomer;
+        }
+        return null;
+    }
 }

@@ -1,23 +1,21 @@
 <!DOCTYPE HTML>
-<html xmlns:layout="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{fragments/main_layout}"
+<html layout:decorate="~{fragments/main_layout}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org">
 
-<div layout:fragment="content" class="container">
+<div class="container" layout:fragment="content">
     <h1>Login</h1>
-    <form action="#" th:action="@{/login}" method="POST">
+    <form action="#" method="post" th:action="@{/login}">
         <div class="form-group">
-            <label for="inputId">Id</label>
-            <input type="input" class="form-control" name="id" id="inputId">
+            <label for="inputPin">Id</label>
+            <input class="form-control" id="inputId" name="id" type="input">
         </div>
-
         <div class="form-group">
             <label for="inputPin">Pin</label>
-            <input type="password" class="form-control" name="pin" id="inputPin">
+            <input class="form-control" id="inputPin" name="pin" type="password">
         </div>
-
         <div class="form-group">
-            <input type="submit" class="btn btn-primary">
+            <input class="btn btn-primary" type="submit">
         </div>
     </form>
 </div>

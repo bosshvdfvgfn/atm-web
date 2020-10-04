@@ -1,46 +1,29 @@
 <!DOCTYPE html>
-<html xmlns:layout="http://www.w3.org/1999/xhtml"
-      layout:decorate="~{fragments/main_layout}"
+<html layout:decorate="~{fragments/main_layout}"
+      xmlns:layout="http://www.w3.org/1999/xhtml"
       xmlns:th="https://www.thymeleaf.org">
 
-
-<head>
-    <meta charset="UTF-8">
-    <title>Customer</title>
-    <link th:rel="stylesheet" th:href="@{css/bootstrap.min.css}">
-</head>
-<body>
-
 <div class="container" layout:fragment="content">
-
     <h1>Open Bank Account</h1>
-    <form th:action="@{/bankaccount}" method="POST">
-
+    <form method="post" th:action="@{/bankaccount}">
         <div class="form-group">
-            <label for="inputCustomerId">Customer Id</label>
-            <input type="text" class="form-control" name="customerId" id="inputCustomerId">
+            <label for="customerId">Customer Id</label>
+            <input class="form-control" id="customerId" name="customerId" type="input"/>
         </div>
-
         <div class="form-group">
             <label for="inputType">Type</label>
-            <input type="text" class="form-control" name="type" id="inputType">
+            <input class="form-control" id="inputType" name="type" type="input"/>
         </div>
-
         <div class="form-group">
-            <label for="inputBalance">Balance</label>
-            <input type="text" class="form-control" name="balance" id="inputBalance">
+            <label for="balance">Balance</label>
+            <input class="form-control" id="balance" name="balance" type="input"/>
         </div>
-
         <div class="form-group">
-            <input type="submit" class="btn btn-primary">
+            <input class="btn btn-primary" type="submit">
         </div>
-
     </form>
-
-    <hr>
     <h1>All Bank Accounts</h1>
-
-    <table class="table table-bordered table-striped">
+    <table class="table table-bordered">
         <thead class="thead-light">
         <tr>
             <th>Id</th>
@@ -51,24 +34,20 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="account : ${bankaccounts}">
-            <td th:text="${account.id}"></td>
-            <td th:text="${account.customerId}"></td>
-            <td th:text="${account.type}"></td>
-            <td th:text="${account.balance}"></td>
+        <tr th:each="bankAccount : ${bankaccounts}">
+            <td th:text="${bankAccount.id}"></td>
+            <td th:text="${bankAccount.customerId}"></td>
+            <td th:text="${bankAccount.type}"></td>
+            <td th:text="${bankAccount.balance}"></td>
             <td>
-                <a class="btn btn-primary"
-                   th:href="@{/bankaccount/edit/{id}(id=${account.id})}">Edit</a>
+                <a class="btn btn-primary" th:href="@{/bankaccount/deposit/{id}(id=${bankAccount.id})}">Deposit</a>
+                <a class="btn btn-warning" th:href="@{/bankaccount/withdraw/{id}(id=${bankAccount.id})}">Withdraw</a>
+                <form class="form-inline" method="POST" onsubmit="return confirm('Are you sure you want to delete ?');"
+                      style="display: inline;" th:action="@{/bankaccount/delete/{id}(id=${bankAccount.id})}">
+                    <button class="btn btn-danger" type="submit">Delete</button>
+                </form>
             </td>
-            <form th:action="@{/bankaccount/delete/{id}(id=${account.id})}" method="POST">
-                <button type="submit" class="btn btn-danger">Delete</button>
-            </form>
         </tr>
         </tbody>
     </table>
-
-
 </div>
-
-</body>
-</html>
