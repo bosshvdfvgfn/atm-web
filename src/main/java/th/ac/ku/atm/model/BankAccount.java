@@ -6,10 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class BankAccount {
 
     private int id;
-
     private int customerId;
     private String type;
     private double balance;
+
+    public BankAccount() {}
 
     public BankAccount(int id, int customerId, String type, double balance) {
         this.id = id;
